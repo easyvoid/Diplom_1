@@ -79,7 +79,7 @@ public class BurgerTest {
 
     @Test
     public void getPrice() {
-        float expectedPrice = bunPrice * 2 + ingredientOnePrice + ingredientTwoPrice;
+        float expectedPrice = burgerPrice;
 
         Mockito.when(bun.getPrice()).thenReturn(bunPrice);
         Mockito.when(ingredientOne.getPrice()).thenReturn(ingredientOnePrice);
