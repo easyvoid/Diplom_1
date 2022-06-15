@@ -23,15 +23,23 @@ public class BurgerTest {
     @Mock
     Ingredient ingredientTwo;
 
+    float ingredientOnePrice = 200f;
+    float ingredientTwoPrice = 400f;
+    IngredientType ingredientOneType = IngredientType.SAUCE;
+    IngredientType ingredientTwoType = IngredientType.FILLING;
+    String ingredientOneName = "chilli sour";
+    String ingredientTwoName = "beef";
+    String bunName = "grey bun";
+    float bunPrice = 200F;
+    float burgerPrice = bunPrice * 2 + ingredientOnePrice + ingredientTwoPrice;
 
     @Test
     public void addIngredient() {
-        Ingredient ingredient = new Ingredient(IngredientType.SAUCE, "chilli sour", 200);
         List<Ingredient> expectedIngredients = new ArrayList<>();
-        expectedIngredients.add(ingredient);
+        expectedIngredients.add(ingredientOne);
 
         Burger burger = new Burger();
-        burger.addIngredient(ingredient);
+        burger.addIngredient(ingredientOne);
         List<Ingredient> actualIngredients = burger.ingredients;
 
         assertEquals(expectedIngredients, actualIngredients);
@@ -39,9 +47,6 @@ public class BurgerTest {
 
     @Test
     public void removeIngredient() {
-        Ingredient ingredientOne = new Ingredient(IngredientType.SAUCE, "chilli sour", 200);
-        Ingredient ingredientTwo = new Ingredient(IngredientType.FILLING, "beef", 400);
-
         List<Ingredient> expectedIngredients = new ArrayList<>(1);
         expectedIngredients.add(ingredientTwo);
 
@@ -58,9 +63,6 @@ public class BurgerTest {
 
     @Test
     public void moveIngredient() {
-        Ingredient ingredientOne = new Ingredient(IngredientType.SAUCE, "chilli sour", 200);
-        Ingredient ingredientTwo = new Ingredient(IngredientType.FILLING, "beef", 400);
-
         List<Ingredient> expectedIngredients = new ArrayList<>();
         expectedIngredients.add(ingredientTwo);
         expectedIngredients.add(ingredientOne);
@@ -77,15 +79,11 @@ public class BurgerTest {
 
     @Test
     public void getPrice() {
-        float ingredientOnePrice = 200f;
-        float ingredientTwoPrice = 400f;
-        Ingredient ingredientOne = new Ingredient(IngredientType.SAUCE, "chilli sour", ingredientOnePrice);
-        Ingredient ingredientTwo = new Ingredient(IngredientType.FILLING, "beef", ingredientTwoPrice);
-        float bunPrice = 200F;
-
         float expectedPrice = bunPrice * 2 + ingredientOnePrice + ingredientTwoPrice;
 
         Mockito.when(bun.getPrice()).thenReturn(bunPrice);
+        Mockito.when(ingredientOne.getPrice()).thenReturn(ingredientOnePrice);
+        Mockito.when(ingredientTwo.getPrice()).thenReturn(ingredientTwoPrice);
 
         Burger burger = new Burger();
         burger.setBuns(bun);
@@ -98,16 +96,6 @@ public class BurgerTest {
 
     @Test
     public void getReceipt() {
-        float ingredientOnePrice = 200f;
-        float ingredientTwoPrice = 400f;
-        IngredientType ingredientOneType = IngredientType.SAUCE;
-        IngredientType ingredientTwoType = IngredientType.FILLING;
-        String ingredientOneName = "chilli sour";
-        String ingredientTwoName = "beef";
-        String bunName = "grey bun";
-        float bunPrice = 200F;
-        float burgerPrice = bunPrice * 2 + ingredientOnePrice + ingredientTwoPrice;
-
         Mockito.when(bun.getName()).thenReturn(bunName);
         Mockito.when(bun.getPrice()).thenReturn(bunPrice);
         Mockito.when(ingredientOne.getName()).thenReturn(ingredientOneName);
